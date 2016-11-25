@@ -221,6 +221,16 @@ module ActionView
         end
       end
     end
+    
+    if Rails::VERSION::MAJOR >= 5
+      module Tags
+        class Base
+          def select_not_required?(html_options)
+            !html_options["required"] || html_options["multiple"] || html_options["size"].to_i > 1
+          end
+        end
+      end
+    end
 
     class FormBuilder
       # Generate select and country option tags with the provided name. A
